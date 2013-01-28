@@ -1,7 +1,7 @@
 #include "../system/system.h"
 #include <stdio.h>
 #include "des.h"
-static unsigned char K[17][48];
+static unsigned char K[16][48];
 static unsigned char PC_c[28]=
 {
 	57,49,41,33,25,17,9,
@@ -165,7 +165,7 @@ static void setkeystar(unsigned char *bits)
 	{
 		LS(C[0],C[1],ls_count[j]);
 		LS(D[0],D[1],ls_count[j]);
-		son(C[1],D[1],K[j+1]);
+		son(C[1],D[1],K[j]);
 		memcpy(&C[0],&C[1],28);
 		memcpy(&D[0],&D[1],28);
 	}
@@ -277,7 +277,7 @@ static void encrypt(unsigned char *datain,unsigned char *dataout)
 	unsigned char tmp[64];
 	int i,j;	
 	ip(datain,L_tmp,R_tmp);		
-	for (i=1;i<17;i++)
+	for (i=0;i<16;i++)
 	{
 		F(i,L_tmp,R_tmp,LL_tmp,RR_tmp);
 		for (j=0;j<32;j++)
